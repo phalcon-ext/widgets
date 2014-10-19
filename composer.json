@@ -1,8 +1,8 @@
 {
-    "name": "phalcon-ext/mailer",
+    "name": "phalcon-ext/widgets",
     "type": "library",
-    "description": "Mailer component as wrapper over SwiftMailer for Phalcon.",
-    "keywords": ["pagination", "widget", "phalcon", "phalcon-ext"],
+    "description": "Widgets component for Phalcon.",
+    "keywords": ["widgets", "widget", "phalcon", "phalcon-ext"],
     "minimum-stability": "stable",
     "license": "LGPL",
 
@@ -16,8 +16,7 @@
     ],
 
     "require": {
-        "php": ">=5.4.0",
-        "swiftmailer/swiftmailer": "~5.3"
+        "php": ">=5.4.0"
     },
 
     "autoload": {
