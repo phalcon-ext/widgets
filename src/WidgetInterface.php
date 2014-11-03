@@ -29,13 +29,6 @@ interface WidgetInterface
     public function __construct(Array $options = []);
 
     /**
-     * Called after __construct
-     *
-     * @return void
-     */
-    public function onConstruct();
-
-    /**
      * @param array $params
      *
      * @return string
@@ -73,4 +66,4 @@ interface WidgetInterface
      */
     public function getView();
 
-} 
+}

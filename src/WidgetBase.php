@@ -42,17 +42,13 @@ abstract class WidgetBase extends Component implements WidgetInterface
     public function __construct(Array $options = [])
     {
         $this->setOptions($options);
-        $this->onConstruct();
-    }
 
-    /**
-     * Called after __construct
-     *
-     * @return void
-     */
-    public function onConstruct()
-    {
-
+        /**
+         * Called after __construct
+         */
+        if (method_exists($this, 'onConstruct')) {
+            $this->onConstruct();
+        }
     }
 
     /**
