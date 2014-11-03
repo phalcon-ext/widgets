@@ -123,15 +123,18 @@ class Manager extends Component
         $widget = $this->getService($name);
         $wDefinition = $widget->getDefinition();
 
-        if (!$widget->isResolved() && isset($wDefinition['path']) && !class_exists($wDefinition['className'], false)) {
-            include_once $wDefinition['path'];
+        if (is_array($wDefinition) && !$widget->isResolved()) {
+
+            if (isset($wDefinition['path']) && !class_exists($wDefinition['className'], false)) {
+                include_once $wDefinition['path'];
+            }
+
+            if (isset($wDefinition['options'])) {
+                $options = array_merge($wDefinition['options'], $options);
+            }
         }
 
-        if (isset($wDefinition['options'])) {
-            $options = array_merge($wDefinition['options'], $options);
-        }
-
-        $instance = $widget->resolve($options, $this->getDI());
+        $instance = $widget->resolve([$options], $this->getDI());
 
         if ($instance instanceof InjectionAwareInterface) {
             $instance->setDI($this->getDI());
