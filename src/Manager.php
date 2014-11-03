@@ -30,12 +30,13 @@ class Manager extends Component
     /**
      * @param $name
      * @param array $params
+     * @param array $options
      *
      * @return string
      */
-    public function render($name, Array $params = [])
+    public function render($name, Array $params = [], Array $options = [])
     {
-        return $this->get($name)->render($params);
+        return $this->get($name, $options)->render($params);
     }
 
     /**
