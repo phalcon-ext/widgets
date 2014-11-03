@@ -24,37 +24,41 @@ interface WidgetInterface
     /**
      * Create a new Widget component using $options for configuring widget
      *
-     * @param array $options
+     * @param array|null $options
      */
-    public function __construct(Array $options = []);
+    public function __construct($options = null);
 
     /**
-     * @param array $params
+     * Renders the widget
+     *
+     * @param array|null $params
      *
      * @return string
      */
-    public function render(Array $params = []);
+    public function render($params = null);
 
     /**
      * Set options for configuring widget
      *
-     * @param array $options
+     * @param array|null $options
      *
      * @return $this
      */
-    public function setOptions(Array $options);
+    public function setOptions($options);
 
     /**
      * Get options for configuring widget
      *
-     * @param null $key
-     * @param null $default
+     * @param string|null $key
+     * @param mixed|null $default
      *
      * @return mixed|null
      */
     public function getOptions($key = null, $default = null);
 
     /**
+     * Sets the view service
+     *
      * @param ViewInterface $view
      *
      * @return $this
@@ -62,6 +66,8 @@ interface WidgetInterface
     public function setView(ViewInterface $view);
 
     /**
+     * Gets the view service
+     *
      * @return ViewInterface
      */
     public function getView();

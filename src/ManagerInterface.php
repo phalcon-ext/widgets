@@ -1,6 +1,6 @@
 <?php
 /**
- * Manager.php
+ * ManagerInterface.php
  * ----------------------------------------------
  *
  * @author      Stanislav Kiryukhin <korsar.zn@gmail.com>
@@ -17,57 +17,79 @@ use Phalcon\Events\EventsAwareInterface;
 use Phalcon\DI\Service;
 
 /**
- * Class Manager
+ * Interface ManagerInterface
  * @package Phalcon\Ext\Widgets
  */
 interface ManagerInterface extends EventsAwareInterface, InjectionAwareInterface
 {
     /**
-     * @param $name
-     * @param array $params
+     * Renders the widget
+     *
+     * @param string $name
+     * @param array|null $params
+     * @param array|null $options
      *
      * @return string
+     * @see \Phalcon\Ext\Widgets\WidgetInterface
      */
-    public function render($name, Array $params = []);
+    public function render($name, $params = null, $options = null);
 
     /**
-     * @param $name
-     * @param array $options
+     * Resolves the service of widget based on its configuration
+     *
+     * @param string $name
+     * @param array|null $options
      *
      * @return WidgetInterface
      * @throws \Exception
+     *
+     * @see \Phalcon\Ext\Widgets\Manager::resolve()
      */
-    public function get($name, Array $options = []);
+    public function get($name, $options = null);
 
     /**
-     * @param $name
-     * @param $definition
+     * Registers a widget in the container
+     *
+     * @param string $name
+     * @param string|array|\Closure $definition
      * @param bool $shared
      *
      * @return $this
+     *
+     * @see \Phalcon\DI\Service
      */
     public function set($name, $definition, $shared = false);
 
     /**
-     * @param $name
+     * Removes a widget from the container
+     *
+     * @param string $name
      */
     public function remove($name);
 
     /**
-     * @param $name
+     * Check whether the Manager contains a widget by a name
+     *
+     * @param string $name
      *
      * @return bool
      */
     public function has($name);
 
     /**
-     * @param $name
+     * Returns the corresponding Phalcon\Di\Service instance for a widget
+     *
+     * @param string $name
      *
      * @return Service
+     *
+     * @see Phalcon\Di\Service
      */
     public function getService($name);
 
     /**
+     * Return the services registered in the Manager
+     *
      * @return \Phalcon\DI\Service[]
      */
     public function getWidgets();

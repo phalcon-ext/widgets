@@ -37,9 +37,9 @@ abstract class WidgetBase extends Component implements WidgetInterface
     /**
      * Create a new Widget component using $options for configuring widget
      *
-     * @param array $options
+     * @param array|null $options
      */
-    public function __construct(Array $options = [])
+    public function __construct($options = null)
     {
         $this->setOptions($options);
 
@@ -54,22 +54,21 @@ abstract class WidgetBase extends Component implements WidgetInterface
     /**
      * Set options for configuring widget
      *
-     * @param array $options
+     * @param array|null $options
      *
      * @return $this
      */
-    public function setOptions(Array $options)
+    public function setOptions($options)
     {
-        $this->_options = array_merge($this->getDefaultOptions(), $options);
-
+        $this->_options = array_merge($this->getDefaultOptions(), (array)$options);
         return $this;
     }
 
     /**
      * Get options for configuring widget
      *
-     * @param null $key
-     * @param null $default
+     * @param string|null $key
+     * @param mixed|null $default
      *
      * @return mixed|null
      */
@@ -83,7 +82,10 @@ abstract class WidgetBase extends Component implements WidgetInterface
     }
 
     /**
+     * Sets the view service
+     *
      * @param ViewInterface $view
+     *
      * @return $this
      */
     public function setView(ViewInterface $view)
@@ -94,6 +96,8 @@ abstract class WidgetBase extends Component implements WidgetInterface
     }
 
     /**
+     * Gets the view service
+     *
      * @return ViewSimple|ViewInterface
      */
     public function getView()
@@ -110,6 +114,8 @@ abstract class WidgetBase extends Component implements WidgetInterface
     }
 
     /**
+     * Gets defaults widget options
+     *
      * @return array
      */
     protected function getDefaultOptions()

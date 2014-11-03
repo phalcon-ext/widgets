@@ -28,25 +28,32 @@ class Manager extends Component
     protected $_widgets = [];
 
     /**
-     * @param $name
-     * @param array $params
-     * @param array $options
+     * Renders the widget
+     *
+     * @param string $name
+     * @param array|null $params
+     * @param array|null $options
      *
      * @return string
+     * @see \Phalcon\Ext\Widgets\WidgetInterface
      */
-    public function render($name, Array $params = [], Array $options = [])
+    public function render($name, $params = null, $options = null)
     {
         return $this->get($name, $options)->render($params);
     }
 
     /**
-     * @param $name
-     * @param array $options
+     * Resolves the service of widget based on its configuration
+     *
+     * @param string $name
+     * @param array|null $options
      *
      * @return WidgetInterface
      * @throws \Exception
+     *
+     * @see \Phalcon\Ext\Widgets\Manager::resolve()
      */
-    public function get($name, Array $options = [])
+    public function get($name, $options = null)
     {
         if ($this->has($name)) {
             return $this->resolve($name, $options);
@@ -57,11 +64,15 @@ class Manager extends Component
     }
 
     /**
-     * @param $name
-     * @param $definition
+     * Registers a widget in the container
+     *
+     * @param string $name
+     * @param string|array|\Closure $definition
      * @param bool $shared
      *
      * @return $this
+     *
+     * @see \Phalcon\DI\Service
      */
     public function set($name, $definition, $shared = false)
     {
@@ -73,7 +84,9 @@ class Manager extends Component
     }
 
     /**
-     * @param $name
+     * Removes a widget from the container
+     *
+     * @param string $name
      */
     public function remove($name)
     {
@@ -81,7 +94,9 @@ class Manager extends Component
     }
 
     /**
-     * @param $name
+     * Check whether the Manager contains a widget by a name
+     *
+     * @param string $name
      *
      * @return bool
      */
@@ -91,9 +106,13 @@ class Manager extends Component
     }
 
     /**
-     * @param $name
+     * Returns the corresponding Phalcon\Di\Service instance for a widget
+     *
+     * @param string $name
      *
      * @return Service
+     *
+     * @see Phalcon\Di\Service
      */
     public function getService($name)
     {
@@ -106,6 +125,8 @@ class Manager extends Component
     }
 
     /**
+     * Return the services registered in the Manager
+     *
      * @return \Phalcon\DI\Service[]
      */
     public function getWidgets()
@@ -114,12 +135,14 @@ class Manager extends Component
     }
 
     /**
-     * @param $name
-     * @param array $options
+     * Resolves the widget
+     *
+     * @param string $name
+     * @param array|null $options
      *
      * @return WidgetInterface
      */
-    protected function resolve($name, Array $options = [])
+    protected function resolve($name, $options = null)
     {
         $widget = $this->getService($name);
         $wDefinition = $widget->getDefinition();
@@ -144,6 +167,10 @@ class Manager extends Component
         return $instance;
     }
 
+    /**
+     * @param string $name
+     * @throws \Exception
+     */
     protected function throwNotFound($name)
     {
         throw new \Exception('Widget "' . $name . '" wasn\'t found in the container');
