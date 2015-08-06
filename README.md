@@ -61,6 +61,11 @@ $di->setShared('widgets', function() use ($di) {
 });
 
 
-// Somewhere in view
-echo $this->getDI()->get('widgets')->render('some', ['a' => 5, 'b' => 5, 'c' => 2]); // 15
+/**
+ * Somewhere in view
+ */
+
+$options = []; // Optional parameter, It will be passed to the constructor of the widget before creating
+
+echo $this->getDI()->get('widgets')->render('some', ['a' => 5, 'b' => 5, 'c' => 2], $options); // 15
 ```
